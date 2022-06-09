@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/", async (req, res) => {
-  let log = "";
+  let log = "[Node]\n\n";
   try {
     const { clientId, clientSecret, redirect, code, fileId } = req.query;
     console.log(`clientId`, clientId);
@@ -44,7 +44,7 @@ app.get("/", async (req, res) => {
     const me = await client.users.get(client.CURRENT_USER_ID);
 
     console.log(JSON.stringify(me));
-    log += `user = ${JSON.stringify(me)}\n\n`;
+    log += `\n\nuser = ${JSON.stringify(me)}\n\n`;
 
     const now = Date.now();
     const file = await client.files.update(fileId, {
@@ -53,14 +53,14 @@ app.get("/", async (req, res) => {
     });
 
     console.log(JSON.stringify(file));
-    log += `file = ${JSON.stringify(file)}\n\n`;
+    log += `\n\nfile = ${JSON.stringify(file)}\n\n`;
   } catch (e) {
     console.error(e);
     log += "\n\n##### Exception #####\n\n";
-    log += e.message + "\n";
+    log += e.message + "\n\n";
     log += e.stack;
   }
-  res.send(log);
+  res.send("<pre>" + log + "</pre>");
 });
 
 app.listen(port, () => {
