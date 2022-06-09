@@ -46,7 +46,7 @@ app.get("/", async (req, res) => {
     console.log(JSON.stringify(me));
     log += `\n\nuser = ${JSON.stringify(me)}\n\n`;
 
-    const now = Date.now();
+    const now = ("" + Date.now()).substring(9);
     const file = await client.files.update(fileId, {
       name: now,
       tags: [`T${now}`],
