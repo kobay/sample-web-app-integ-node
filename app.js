@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/", async (req, res) => {
-  let log;
+  let log = "";
   try {
     const { clientId, clientSecret, redirect, code, fileId } = req.query;
     console.log(`clientId`, clientId);
